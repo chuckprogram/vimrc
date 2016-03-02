@@ -14,18 +14,23 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Shougo/vimshell.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'bling/vim-bufferline'
+Plugin 'tomasr/molokai'
+Plugin 'powerline/powerline'
+Plugin 'Valloric/YouCompleteMe'
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'taglist.vim'
-Plugin 'taglist-plus'
+"Plugin 'taglist.vim'
+"Plugin 'taglist-plus'
 Plugin 'ctrlp.vim'
 Plugin 'Tagbar'
-Plugin 'Tabbar'
+"Plugin 'Tabbar'
 Plugin 'unite.vim'
-Plugin 'Powerline'
-Plugin 'Shougo/vimproc.vim'
 
 call vundle#end()            " required
 " To ignore plugin indent changes, instead use:
@@ -42,6 +47,39 @@ call vundle#end()            " required
 
 filetype plugin indent on    " required
 
+" ######################### MISC BEGIN #####################################
+syntax enable
+syntax on
+"set background=dark
+colorscheme monokai
+"colorscheme molokai
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+
+set nu
+map <F2> :set nu!<CR>
+set nowrap
+
+set sw=4
+set st=4
+set softtabstop=4
+
+" The following are commented out as they cause vim to behave a lot
+" differently from regular Vi. They are highly recommended though.
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ignorecase         " Do case insensitive matching
+set smartcase          " Do smart case matching
+set incsearch           " Incremental search
+"set autowrite          " Automatically save before commands like :next and :make
+set hidden             " Hide buffers when they are abandoned
+set hls
+set mouse=v            " Enable mouse usage (all modes)
+
+set laststatus=2
+
+" ######################### MISC END #####################################
+
 " ######################### NERDTREE BEGIN #####################################
 
 " How can I open a NERDTree automatically when vim starts up?
@@ -53,34 +91,14 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeWinPos = "right"
 map <F4> :NERDTreeToggle<CR>
 
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
 " ######################### NERDTREE END #####################################
 
 " ######################### TAGLIST BEGIN #####################################
 " ######################### TAGLIST END #####################################
 
 " ######################### TABBAR BEGIN #####################################
-let g:Tb_MaxSize = 2 
-let g:Tb_TabWrap = 1
+"let g:Tb_MaxSize = 2 
+"let g:Tb_TabWrap = 1
 " ######################### TABBAR END #####################################
 
 " ######################### TAGBAR BEGIN #####################################
@@ -93,29 +111,27 @@ let g:tagbar_compact = 1
 " ######################### TAGBAR END #####################################
 
 " ######################### POWERLINE BEGIN ################################
-let g:Powerline_symbols = 'unicode'
+"let g:Powerline_symbols = 'unicode'
 " ######################### POWERLINE END ##################################
 
+" ########################## AIRLINE BEGIN #################################
+set t_Co=256
+let g:airline_powerline_fonts = 1
+let g:airline_theme="luna"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#bufferline#enabled = 1
+" ########################## AIRLINE END ###################################
 
-" ######################### MISC BEGIN #####################################
-syntax enable
-syntax on
+let g:bufferline_echo = 1
+let g:bufferline_active_buffer_left = '['
+let g:bufferline_active_buffer_right = ']'
+let g:bufferline_modified = '+'
 
-set nu
-map <F2> :set nu!<CR>
 
-set sw=4
-set st=4
-set softtabstop=4
+let g:ycm_complete_in_comments_and_strings=1
 
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-"set ignorecase         " Do case insensitive matching
-set smartcase          " Do smart case matching
-set incsearch           " Incremental search "set autowrite          " Automatically save before commands like :next and :make
-set hidden             " Hide buffers when they are abandoned
-set mouse=v            " Enable mouse usage (all modes)
-
-" ######################### MISC END #####################################
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf/ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
